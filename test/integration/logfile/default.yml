@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Integration test logfile
+  hosts: localhost
   roles:
-    - role: ansible-redis
-      redis_logfile: "/var/log/redis.log"
+    - role: davidwittman.redis
+      redis_logfile: /var/log/redis.log

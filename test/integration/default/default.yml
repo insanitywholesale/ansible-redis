@@ -1,4 +1,5 @@
 ---
-- hosts: localhost
+- name: Integration test default
+  hosts: localhost
   roles:
-    - ansible-redis
+    - davidwittman.redis

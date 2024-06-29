@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  namespace: davidwittman
+  role_name: redis
   author: David Wittman
   description: Highly configurable role to install Redis and Redis Sentinel from source
   min_ansible_version: 2.4.0

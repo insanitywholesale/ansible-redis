@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Integration test service-name
+  hosts: localhost
   roles:
-    - role: ansible-redis
+    - role: davidwittman.redis
       redis_service_name: redis

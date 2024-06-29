@@ -2,31 +2,35 @@
 # Test for all replication components of Redis
 # We're using non-standard ports here so they don't conflict with other
 # tests on Travis.
-- hosts: all
+- name: Test all
+  hosts: all
   remote_user: root
   vars:
     redis_version: 3.0.7
     redis_password: ant1r3z
     redis_travis_ci: true
   tasks:
-    - import_role:
-        name: ../../ansible-redis
+    - name: Test something
+      ansible.builtin.import_role:
+        name: davidwittman.redis
       vars:
         redis_port: 7379
 
-    - meta: flush_handlers
-
-    - import_role:
-        name: ../../ansible-redis
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+    - name: Test something else
+      ansible.builtin.import_role:
+        name: davidwittman.redis
       vars:
         redis_port: 8379
         redis_slaveof: 127.0.0.1 7379
         redis_local_facts: false
 
-    - meta: flush_handlers
-
-    - import_role:
-        name: ../../ansible-redis
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+    - name: Test a third thing
+      ansible.builtin.import_role:
+        name: davidwittman.redis
       vars:
         redis_sentinel: true
         redis_sentinel_port: 27379

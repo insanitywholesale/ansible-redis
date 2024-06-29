@@ -1,6 +1,7 @@
 ---
-- hosts: localhost
+- name: Integration test sentinel
+  hosts: localhost
   roles:
-    - role: ansible-redis
+    - role: davidwittman.redis
       redis_sentinel: true
-      redis_sentinel_logfile: "/var/log/redis_sentinel.log"
+      redis_sentinel_logfile: /var/log/redis_sentinel.log
