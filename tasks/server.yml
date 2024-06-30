@@ -74,6 +74,7 @@
     path: "{{ redis_logfile | dirname }}"
     owner: "{{ redis_user }}"
     group: "{{ redis_group }}"
+    mode: "0750"
   when:
     - redis_logfile != '""'
     - not logdir.stat.exists
@@ -85,6 +86,7 @@
     force: false # Don't override file contet if the file already exits
     owner: "{{ redis_user }}"
     group: "{{ redis_group }}"
+    mode: "0640"
   when: redis_logfile != '""'
 
 - name: Update permissions of log file if needed
@@ -93,6 +95,7 @@
     path: "{{ redis_logfile }}"
     owner: "{{ redis_user }}"
     group: "{{ redis_group }}"
+    mode: "0640"
   when: redis_logfile != '""'
 
 - name: Check if pid directory exists
@@ -108,6 +111,7 @@
     path: "{{ redis_pidfile | dirname }}"
     owner: "{{ redis_user }}"
     group: "{{ redis_group }}"
+    mode: "0750"
   when:
     - redis_pidfile != '""'
     - not piddir.stat.exists

@@ -14,12 +14,18 @@
     url: "{{ redis_download_url }}"
     dest: /usr/local/src/redis-{{ redis_version }}.tar.gz
     checksum: "{{ redis_checksum | default(omit) }}"
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: "0644"
   when: not redis_tarball
 
 - name: Upload redis
   ansible.builtin.copy:
     src: "{{ redis_tarball }}"
     dest: /usr/local/src/redis-{{ redis_version }}.tar.gz
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: "0644"
   when: redis_tarball|default(false)
 
 - name: Extract redis tarball

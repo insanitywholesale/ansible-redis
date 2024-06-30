@@ -9,8 +9,8 @@
   when: redis_travis_ci is not defined
 
 - name: Compile redis
-  ansible.builtin.shell: umask 0022 && make -j{{ ansible_processor_cores|default(1) + 1 }}{{ ' 32bit' if redis_make_32bit|bool else '' }}{{ ' BUILD_TLS=yes' if redis_make_tls|bool
-    else '' }}
+  ansible.builtin.shell: umask 0022 && make -j{{ ansible_processor_cores | default(1) + 1 }}{{ ' 32bit' if redis_make_32bit | bool else '' }}{{ ' BUILD_TLS=yes' if
+    redis_make_tls | bool else '' }}
   args:
     chdir: /usr/local/src/redis-{{ redis_version }}
     creates: /usr/local/src/redis-{{ redis_version }}/src/redis-server
@@ -47,14 +47,17 @@
   ansible.builtin.file:
     path: /etc/redis
     state: directory
-    mode: "0755"
     owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: "0755"
 
 - name: Create /var/run/redis
   ansible.builtin.file:
     path: /var/run/redis
     state: directory
     owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: "0755"
 
 - name: Install redis
   ansible.builtin.shell: umask 0022 && make PREFIX={{ redis_install_dir }} install

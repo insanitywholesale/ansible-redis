@@ -1,34 +1,43 @@
 ---
-- ansible.builtin.include_tasks: check_vars.yml
-- ansible.builtin.include_tasks: download.yml
+- name: Check variables
+  ansible.builtin.include_tasks: check_vars.yml
+
+- name: Download redis
+  ansible.builtin.include_tasks: download.yml
   when: redis_install_from_source
   tags:
     - download
 
-- ansible.builtin.include_tasks: dependencies.yml
+- name: Install redis dependencies
+  ansible.builtin.include_tasks: dependencies.yml
   when: redis_install_from_source
   tags:
     - install
 
-- ansible.builtin.include_tasks: install.yml
+- name: Install redis from source
+  ansible.builtin.include_tasks: install.yml
   when: redis_install_from_source
   tags:
     - install
 
-- ansible.builtin.include_tasks: install_from_repo.yml
+- name: Install redis from repository
+  ansible.builtin.include_tasks: install_from_repo.yml
   when: not redis_install_from_source
   tags:
     - install
 
-- ansible.builtin.include_tasks: server.yml
+- name: Set up redis server
+  ansible.builtin.include_tasks: server.yml
   when: not redis_sentinel
   tags:
     - config
 
-- ansible.builtin.include_tasks: sentinel.yml
+- name: Set up redis sentinel
+  ansible.builtin.include_tasks: sentinel.yml
   when: redis_sentinel
   tags:
     - config
 
-- ansible.builtin.include_tasks: local_facts.yml
+- name: Local facts
+  ansible.builtin.include_tasks: local_facts.yml
   when: redis_local_facts|bool
